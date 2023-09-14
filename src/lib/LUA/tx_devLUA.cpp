@@ -48,6 +48,28 @@ static struct luaItem_selection luaTlmRate = {
     tlmBandwidth
 };
 
+// Custom
+static struct luaItem_selection luaMinFrequency = {
+    {"Min Frequency", CRSF_TEXT_SELECTION},
+    0, // value
+    "700MHZ;750MHZ;800MHZ;850MHZ",
+    STR_EMPTYSPACE
+};
+
+static struct luaItem_selection luaMaxFrequency = {
+    {"Max Frequency", CRSF_TEXT_SELECTION},
+    0, // value
+    "700MHZ;750MHZ;800MHZ;850MHZ",
+    STR_EMPTYSPACE
+};
+
+static struct luaItem_selection luaGrid = {
+    {"Grid", CRSF_TEXT_SELECTION},
+    0, // value
+    "10;20;30;40",
+    STR_EMPTYSPACE
+};
+
 //----------------------------POWER------------------
 static struct luaItem_folder luaPowerFolder = {
     {"TX Power", CRSF_FOLDER},pwrFolderDynamicName
@@ -593,6 +615,18 @@ static void registerLuaParameters()
         }
       }
     });
+
+    // Custom
+    registerLUAParameter(&luaMinFrequency, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetMinFrequency(arg);
+    });
+    registerLUAParameter(&luaMaxFrequency, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetMaxFrequency(arg);
+    });
+    registerLUAParameter(&luaGrid, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetGrid(arg);
+    });
+
     #if defined(TARGET_TX_FM30)
     registerLUAParameter(&luaBluetoothTelem, [](struct luaPropertiesCommon *item, uint8_t arg) {
       digitalWrite(GPIO_PIN_BLUETOOTH_EN, !arg);
@@ -775,6 +809,12 @@ static int event()
   uint8_t currentRate = adjustPacketRateForBaud(config.GetRate());
   setLuaTextSelectionValue(&luaAirRate, RATE_MAX - 1 - currentRate);
   setLuaTextSelectionValue(&luaTlmRate, config.GetTlm());
+
+  // Custom
+  setLuaTextSelectionValue(&luaMinFrequency, config.GetMinFrequency());
+  setLuaTextSelectionValue(&luaMaxFrequency, config.GetMaxFrequency());
+  setLuaTextSelectionValue(&luaGrid, config.GetGrid());
+
   setLuaTextSelectionValue(&luaSwitch, config.GetSwitchMode());
   luaSwitch.options = OtaIsFullRes ? switchmodeOpts8ch : switchmodeOpts4ch;
   if (isDualRadio())

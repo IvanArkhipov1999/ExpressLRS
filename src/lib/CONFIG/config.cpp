@@ -377,6 +377,37 @@ TxConfig::SetTlm(uint8_t tlm)
     }
 }
 
+// Custom
+void
+TxConfig::SetMinFrequency(uint8_t minFreq)
+{
+    if (GetMinFrequency() != minFreq)
+    {
+        this->minFreq = minFreq;
+        m_modified |= MODEL_CHANGED;
+    }
+}
+
+void
+TxConfig::SetMaxFrequency(uint8_t maxFreq)
+{
+    if (GetMaxFrequency() != maxFreq)
+    {
+        this->maxFreq = maxFreq;
+        m_modified |= MODEL_CHANGED;
+    }
+}
+
+void
+TxConfig::SetGrid(uint8_t grid)
+{
+    if (GetGrid() != grid)
+    {
+        this->grid = grid;
+        m_modified |= MODEL_CHANGED;
+    }
+}
+
 void
 TxConfig::SetPower(uint8_t power)
 {
@@ -899,6 +930,38 @@ RxConfig::SetModelId(uint8_t modelId)
         m_modified = true;
     }
 }
+
+// Custom
+void
+RxConfig::SetMinFrequency(uint8_t minFreq)
+{
+    if (GetMinFrequency() != minFreq)
+    {
+        this->minFreq = minFreq;
+        m_modified = true;
+    }
+}
+
+void
+RxConfig::SetMaxFrequency(uint8_t maxFreq)
+{
+    if (GetMaxFrequency() != maxFreq)
+    {
+        this->maxFreq = maxFreq;
+        m_modified = true;
+    }
+}
+
+void
+RxConfig::SetGrid(uint8_t grid)
+{
+    if (GetGrid() != grid)
+    {
+        this->grid = grid;
+        m_modified = true;
+    }
+}
+
 
 void
 RxConfig::SetPower(uint8_t power)

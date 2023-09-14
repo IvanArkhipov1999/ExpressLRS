@@ -83,6 +83,7 @@ typedef struct {
                     dvrStopDelay:3,
                     backpackDisable:1,  // bool, disable backpack via EN pin if available
                     backpackTlmEnabled:1,  // bool, enable telemetry via ESPNOW from backpack
+
                     unused:1;          // FUTURE available
     uint8_t         dvrStartDelay:3,
                     dvrAux:5;
@@ -101,6 +102,12 @@ public:
     // Getters
     uint8_t GetRate() const { return m_model->rate; }
     uint8_t GetTlm() const { return m_model->tlm; }
+
+    // Custom
+    uint8_t GetMinFrequency() const { return this->minFreq; }
+    uint8_t GetMaxFrequency() const { return this->maxFreq; }
+    uint8_t GetGrid() const { return this->grid; }
+
     uint8_t GetPower() const { return m_model->power; }
     bool GetDynamicPower() const { return m_model->dynamicPower; }
     uint8_t GetBoostChannel() const { return m_model->boostChannel; }
@@ -128,6 +135,12 @@ public:
     // Setters
     void SetRate(uint8_t rate);
     void SetTlm(uint8_t tlm);
+
+    // Custom
+    void SetMinFrequency(uint8_t minFreq);
+    void SetMaxFrequency(uint8_t maxFreq);
+    void SetGrid(uint8_t grid);
+
     void SetPower(uint8_t power);
     void SetDynamicPower(bool dynamicPower);
     void SetBoostChannel(uint8_t boostChannel);
@@ -166,6 +179,12 @@ private:
     uint8_t     m_modified;
     model_config_t *m_model;
     uint8_t     m_modelId;
+
+    // Custom
+    uint32_t    minFreq = 1;
+    uint32_t    maxFreq = 2;
+    uint32_t    grid = 1;
+
 #if defined(PLATFORM_ESP32)
     nvs_handle  handle;
 #endif
@@ -219,6 +238,11 @@ public:
     void Load();
     void Commit();
 
+    // Custom
+    uint8_t GetMinFrequency() const { return this->minFreq; }
+    uint8_t GetMaxFrequency() const { return this->maxFreq; }
+    uint8_t GetGrid() const { return this->grid; }
+
     // Getters
     bool     GetIsBound() const { return firmwareOptions.hasUID || m_config.isBound; }
     const uint8_t* GetUID() const { return m_config.uid; }
@@ -238,6 +262,12 @@ public:
     eFailsafeMode GetFailsafeMode() const { return (eFailsafeMode)m_config.failsafeMode; }
 
     // Setters
+
+    // Custom
+    void SetMinFrequency(uint8_t minFreq);
+    void SetMaxFrequency(uint8_t maxFreq);
+    void SetGrid(uint8_t grid);
+
     void SetIsBound(bool isBound);
     void SetUID(uint8_t* uid);
     void SetOnLoan(bool loaned);
@@ -265,6 +295,11 @@ private:
     rx_config_t m_config;
     ELRS_EEPROM *m_eeprom;
     bool        m_modified;
+
+    // Custom
+    uint32_t    minFreq = 1;
+    uint32_t    maxFreq = 2;
+    uint32_t    grid = 1;
 };
 
 extern RxConfig config;

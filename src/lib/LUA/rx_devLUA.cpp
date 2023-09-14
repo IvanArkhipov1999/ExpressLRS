@@ -15,6 +15,29 @@ static const char *pwmModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Of
 static const char *txModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Off;Serial TX";
 static const char *rxModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Off;Serial RX";
 
+
+// Custom
+static struct luaItem_selection luaMinFrequency = {
+    {"Min Frequency", CRSF_TEXT_SELECTION},
+    0, // value
+    "700MHZ;750MHZ;800MHZ;850MHZ",
+    STR_EMPTYSPACE
+};
+
+static struct luaItem_selection luaMaxFrequency = {
+    {"Max Frequency", CRSF_TEXT_SELECTION},
+    0, // value
+    "700MHZ;750MHZ;800MHZ;850MHZ",
+    STR_EMPTYSPACE
+};
+
+static struct luaItem_selection luaGrid = {
+    {"Grid", CRSF_TEXT_SELECTION},
+    0, // value
+    "10;20;30;40",
+    STR_EMPTYSPACE
+};
+
 static struct luaItem_selection luaSerialProtocol = {
     {"Protocol", CRSF_TEXT_SELECTION},
     0, // value
@@ -303,6 +326,17 @@ static void luaparamSetPower(struct luaPropertiesCommon* item, uint8_t arg)
 
 static void registerLuaParameters()
 {
+        // Custom
+    registerLUAParameter(&luaMinFrequency, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetMinFrequency(arg);
+    });
+    registerLUAParameter(&luaMaxFrequency, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetMaxFrequency(arg);
+    });
+    registerLUAParameter(&luaGrid, [](luaPropertiesCommon *item, uint8_t arg) {
+        config.SetGrid(arg);
+    });
+
   registerLUAParameter(&luaSerialProtocol, [](struct luaPropertiesCommon* item, uint8_t arg){
     config.SetSerialProtocol((eSerialProtocol)arg);
     if (config.IsModified()) {
@@ -377,6 +411,11 @@ static int event()
 {
   setLuaTextSelectionValue(&luaSerialProtocol, config.GetSerialProtocol());
   setLuaTextSelectionValue(&luaFailsafeMode, config.GetFailsafeMode());
+
+    // Custom
+  setLuaTextSelectionValue(&luaMinFrequency, config.GetMinFrequency());
+  setLuaTextSelectionValue(&luaMaxFrequency, config.GetMaxFrequency());
+  setLuaTextSelectionValue(&luaGrid, config.GetGrid());
 
   if (GPIO_PIN_ANT_CTRL != UNDEF_PIN)
   {

@@ -1708,7 +1708,9 @@ void setup()
 
         setupBindingFromConfig();
 
-        FHSSrandomiseFHSSsequence(uidMacSeedGet());
+        // Custom
+        CustomFHSSrandomiseFHSSsequence(uidMacSeedGet(), config.GetMinFrequency(), config.GetMaxFrequency(), config.GetGrid());
+//        FHSSrandomiseFHSSsequence(uidMacSeedGet());
 
         setupRadio();
 
@@ -1744,6 +1746,12 @@ void loop()
     }
 
     devicesUpdate(now);
+
+    // Custom
+    if (isChanged(config.GetMinFrequency(), config.GetMaxFrequency(), config.GetGrid())) {
+        CustomFHSSrandomiseFHSSsequence(uidMacSeedGet(), config.GetMinFrequency(), config.GetMaxFrequency(),
+                                        config.GetGrid());
+    }
 
 #if defined(PLATFORM_ESP8266) || defined(PLATFORM_ESP32)
     // If the reboot time is set and the current time is past the reboot time then reboot.
@@ -1907,7 +1915,10 @@ void ExitBindingMode()
     config.Commit();
 
     OtaUpdateCrcInitFromUid();
-    FHSSrandomiseFHSSsequence(uidMacSeedGet());
+
+    // Custom
+    CustomFHSSrandomiseFHSSsequence(uidMacSeedGet(), config.GetMinFrequency(), config.GetMaxFrequency(), config.GetGrid());
+//    FHSSrandomiseFHSSsequence(uidMacSeedGet());
 
     #if defined(PLATFORM_ESP32) || defined(PLATFORM_ESP8266)
     webserverPreventAutoStart = true;

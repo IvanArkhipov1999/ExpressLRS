@@ -26,10 +26,16 @@ extern int32_t FreqCorrection;
 extern int32_t FreqCorrection_2;
 extern uint8_t FHSSsequence[];
 extern uint_fast8_t sync_channel;
-extern const fhss_config_t *FHSSconfig;
+extern fhss_config_t *FHSSconfig;
 
 // create and randomise an FHSS sequence
 void FHSSrandomiseFHSSsequence(uint32_t seed);
+
+/// Custom FHSS
+void CustomFHSSrandomiseFHSSsequence(const uint32_t seed, const uint8_t freq_start, const uint8_t freq_stop, const uint8_t freq_count);
+
+/// Is frequencies and grid changed
+bool isChanged(const uint8_t freq_start, const uint8_t freq_stop, const uint8_t freq_count);
 
 // The number of frequencies for this regulatory domain
 static inline uint32_t FHSSgetChannelCount(void)

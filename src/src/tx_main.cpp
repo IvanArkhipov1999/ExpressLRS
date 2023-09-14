@@ -1218,7 +1218,9 @@ void setup()
     devicesInit();
     DBGLN("Initialised devices");
 
-    FHSSrandomiseFHSSsequence(uidMacSeedGet());
+    // Custom
+    CustomFHSSrandomiseFHSSsequence(uidMacSeedGet(), config.GetMinFrequency(), config.GetMaxFrequency(), config.GetGrid());
+//    FHSSrandomiseFHSSsequence(uidMacSeedGet());
 
     Radio.RXdoneCallback = &RXdoneISR;
     Radio.TXdoneCallback = &TXdoneISR;
@@ -1313,7 +1315,13 @@ void loop()
   // Update UI devices
   devicesUpdate(now);
 
-  // Not a device because it must be run on the loop core
+    // Custom
+    if (isChanged(config.GetMinFrequency(), config.GetMaxFrequency(), config.GetGrid())) {
+        CustomFHSSrandomiseFHSSsequence(uidMacSeedGet(), config.GetMinFrequency(), config.GetMaxFrequency(),
+                                        config.GetGrid());
+    }
+
+    // Not a device because it must be run on the loop core
   checkBackpackUpdate();
 
   #if defined(PLATFORM_ESP8266) || defined(PLATFORM_ESP32)
