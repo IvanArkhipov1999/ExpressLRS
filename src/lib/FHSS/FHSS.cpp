@@ -130,16 +130,43 @@ void CustomFHSSrandomiseFHSSsequence(const uint32_t seed, const uint8_t freq_sta
     // Matching selected point to frequency
     switch (freq_start) {
         case 0:
-            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(700000000);
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(400000000);
             break;
         case 1:
-            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(750000000);
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(450000000);
             break;
         case 2:
-            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(800000000);
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(500000000);
             break;
         case 3:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(550000000);
+            break;
+        case 4:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(600000000);
+            break;
+        case 5:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(650000000);
+            break;
+        case 6:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(700000000);
+            break;
+        case 7:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(750000000);
+            break;
+        case 8:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(800000000);
+            break;
+        case 9:
             FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(850000000);
+            break;
+        case 10:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(900000000);
+            break;
+        case 11:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(950000000);
+            break;
+        case 12:
+            FHSSconfig->freq_start = FREQ_HZ_TO_REG_VAL(1000000000);
             break;
         default:
             break;
@@ -147,22 +174,49 @@ void CustomFHSSrandomiseFHSSsequence(const uint32_t seed, const uint8_t freq_sta
     // Matching selected point to frequency
     switch (freq_stop) {
         case 0:
-            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(700000000);
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(400000000);
             break;
         case 1:
-            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(750000000);
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(450000000);
             break;
         case 2:
-            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(800000000);
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(500000000);
             break;
         case 3:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(550000000);
+            break;
+        case 4:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(600000000);
+            break;
+        case 5:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(650000000);
+            break;
+        case 6:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(700000000);
+            break;
+        case 7:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(750000000);
+            break;
+        case 8:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(800000000);
+            break;
+        case 9:
             FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(850000000);
+            break;
+        case 10:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(900000000);
+            break;
+        case 11:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(950000000);
+            break;
+        case 12:
+            FHSSconfig->freq_stop = FREQ_HZ_TO_REG_VAL(1000000000);
             break;
         default:
             break;
     }
     // Matching selected point to grid
-    switch (freq_stop) {
+    switch (freq_count) {
         case 0:
             FHSSconfig->freq_count = 10;
             break;

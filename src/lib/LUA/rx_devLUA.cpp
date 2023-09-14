@@ -20,14 +20,14 @@ static const char *rxModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Off
 static struct luaItem_selection luaMinFrequency = {
     {"Min Frequency", CRSF_TEXT_SELECTION},
     0, // value
-    "700MHZ;750MHZ;800MHZ;850MHZ",
+    "400MHZ;450MHZ;500MHZ;550MHZ;600MHZ;650MHZ;700MHZ;750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
 static struct luaItem_selection luaMaxFrequency = {
     {"Max Frequency", CRSF_TEXT_SELECTION},
     0, // value
-    "700MHZ;750MHZ;800MHZ;850MHZ",
+    "400MHZ;450MHZ;500MHZ;550MHZ;600MHZ;650MHZ;700MHZ;750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
