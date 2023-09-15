@@ -181,8 +181,8 @@ private:
     uint8_t     m_modelId;
 
     // Custom
-    uint32_t    minFreq = 8;
-    uint32_t    maxFreq = 10;
+    uint32_t    minFreq = 1;
+    uint32_t    maxFreq = 3;
     uint32_t    grid = 1;
 
 #if defined(PLATFORM_ESP32)
@@ -297,8 +297,8 @@ private:
     bool        m_modified;
 
     // Custom
-    uint32_t    minFreq = 8;
-    uint32_t    maxFreq = 10;
+    uint32_t    minFreq = 1;
+    uint32_t    maxFreq = 3;
     uint32_t    grid = 1;
 };
 
