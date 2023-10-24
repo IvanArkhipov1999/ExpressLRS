@@ -4,6 +4,9 @@
 #include "devCRSF.h"
 #include "devServoOutput.h"
 
+#include <fstream>
+#include <string>
+
 extern void deferExecution(uint32_t ms, std::function<void()> f);
 extern void reconfigureSerial();
 
@@ -15,25 +18,60 @@ static const char *pwmModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Of
 static const char *txModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Off;Serial TX";
 static const char *rxModes = "50Hz;60Hz;100Hz;160Hz;333Hz;400Hz;10kHzDuty;On/Off;Serial RX";
 
+// Custom
+
+struct custom_freq
+{
+  int min_freq;
+  int max_freq;
+  int grid;
+};
+
+custom_freq get_settings() {
+  custom_freq result;
+  std::ifstream file("settings.txt");
+
+  if (file.is_open()) {
+    std::string min_freq_line;
+    std::getline(file, min_freq_line);
+    result.min_freq = std::stoi(min_freq_line);
+
+    std::string max_freq_line;
+    std::getline(file, max_freq_line);
+    result.max_freq = std::stoi(max_freq_line);
+
+    std::string grid_line;
+    std::getline(file, grid_line);
+    result.grid = std::stoi(grid_line);
+  } else {
+    result.min_freq = 0;
+    result.max_freq = 0;
+    result.grid = 0;
+  }
+
+  return result;
+}
+
+static struct custom_freq settings_custom_freq = get_settings();
 
 // Custom
 static struct luaItem_selection luaMinFrequency = {
     {"Min Frequency", CRSF_TEXT_SELECTION},
-    0, // value
+    settings_custom_freq.min_freq, // value
     "750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
 static struct luaItem_selection luaMaxFrequency = {
     {"Max Frequency", CRSF_TEXT_SELECTION},
-    0, // value
+    settings_custom_freq.max_freq, // value
     "750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
 static struct luaItem_selection luaGrid = {
     {"Grid", CRSF_TEXT_SELECTION},
-    0, // value
+    settings_custom_freq.grid, // value
     "10;20;30;40",
     STR_EMPTYSPACE
 };
