@@ -3,9 +3,6 @@
 #include "options.h"
 #include <string.h>
 
-#include <iostream>
-#include <fstream>
-
 #if defined(RADIO_SX127X)
 #include "SX127xDriver.h"
 
@@ -117,19 +114,6 @@ void FHSSrandomiseFHSSsequence(const uint32_t seed)
 
 
 void CustomFHSSrandomiseFHSSsequence(const uint32_t seed, const uint8_t freq_start, const uint8_t freq_stop, const uint8_t freq_count) {
-    // saving settings to file
-    std::string filename = "settings.txt";
-    std::ofstream file;
-
-    if (std::ifstream(filename)) {
-        file.open(filename, std::ios::app);
-        if (file.is_open()) {
-            file << freq_start << std::endl;
-            file << freq_stop << std::endl;
-            file << freq_count << std::endl;
-        }
-    }
-
     // Saving not converted values
     freq_start_not_converted = freq_start;
     freq_stop_not_converted = freq_stop;
