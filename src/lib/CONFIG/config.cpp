@@ -154,6 +154,14 @@ void TxConfig::Load()
     if (nvs_get_u32(handle, "motion", &value) == ESP_OK)
         m_config.motionMode = value;
 
+    // Custom
+    if (nvs_get_u32(handle, "minFreq", &value) == ESP_OK)
+        this->minFreq = value;
+    if (nvs_get_u32(handle, "maxFreq", &value) == ESP_OK)
+        this->maxFreq = value;
+    if (nvs_get_u32(handle, "grid", &value) == ESP_OK)
+        this->grid = value;
+
     if (version >= 6)
     {
         // dvr (v6)
@@ -312,6 +320,11 @@ TxConfig::Commit()
         char model[10] = "model";
         itoa(m_modelId, model+5, 10);
         nvs_set_u32(handle, model, value);
+
+        // Custom
+        nvs_set_u32(handle, "minFreq", this->minFreq);
+        nvs_set_u32(handle, "maxFreq", this->maxFreq);
+        nvs_set_u32(handle, "grid", this->grid);
     }
     if (m_modified & VTX_CHANGED)
     {
