@@ -6,9 +6,6 @@
 #include "OTA.h"
 #include "FHSS.h"
 
-#include <fstream>
-#include <string>
-
 #define STR_LUA_ALLAUX         "AUX1;AUX2;AUX3;AUX4;AUX5;AUX6;AUX7;AUX8;AUX9;AUX10"
 
 #define STR_LUA_ALLAUX_UPDOWN  "AUX1" LUASYM_ARROW_UP ";AUX1" LUASYM_ARROW_DN ";AUX2" LUASYM_ARROW_UP ";AUX2" LUASYM_ARROW_DN \
@@ -52,60 +49,23 @@ static struct luaItem_selection luaTlmRate = {
 };
 
 // Custom
-
-struct custom_freq
-{
-  int min_freq;
-  int max_freq;
-  int grid;
-};
-
-custom_freq get_settings() {
-  custom_freq result;
-  std::ifstream file("settings.txt");
-
-  if (file.is_open()) {
-    std::string min_freq_line;
-    std::getline(file, min_freq_line);
-    result.min_freq = std::stoi(min_freq_line);
-
-    std::string max_freq_line;
-    std::getline(file, max_freq_line);
-    result.max_freq = std::stoi(max_freq_line);
-
-    std::string grid_line;
-    std::getline(file, grid_line);
-    result.grid = std::stoi(grid_line);
-  } else {
-    result.min_freq = 0;
-    result.max_freq = 0;
-    result.grid = 0;
-  }
-
-  return result;
-}
-
-static struct custom_freq settings_custom_freq = get_settings();
-
-
-// Custom
 static struct luaItem_selection luaMinFrequency = {
     {"Min Frequency", CRSF_TEXT_SELECTION},
-    settings_custom_freq.min_freq, // value
+    0, // value
     "750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
 static struct luaItem_selection luaMaxFrequency = {
     {"Max Frequency", CRSF_TEXT_SELECTION},
-    settings_custom_freq.max_freq, // value
+    0, // value
     "750MHZ;800MHZ;850MHZ;900MHZ;950MHZ;1000MHZ;",
     STR_EMPTYSPACE
 };
 
 static struct luaItem_selection luaGrid = {
     {"Grid", CRSF_TEXT_SELECTION},
-    settings_custom_freq.grid, // value
+    0, // value
     "10;20;30;40",
     STR_EMPTYSPACE
 };
