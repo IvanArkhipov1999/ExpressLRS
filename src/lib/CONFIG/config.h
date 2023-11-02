@@ -297,9 +297,9 @@ private:
     bool        m_modified;
 
     // Custom
-    uint32_t    minFreq = 1;
-    uint32_t    maxFreq = 3;
-    uint32_t    grid = 1;
+    uint8_t    minFreq = 1;
+    uint8_t    maxFreq = 3;
+    uint8_t    grid = 1;
 };
 
 extern RxConfig config;

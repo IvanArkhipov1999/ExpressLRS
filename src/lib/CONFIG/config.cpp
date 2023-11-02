@@ -738,6 +738,11 @@ void RxConfig::Load()
 {
     m_modified = false;
     m_eeprom->Get(0, m_config);
+	
+	// Custom
+	m_eeprom->Get(sizeof(m_config), this->minFreq);
+	m_eeprom->Get(sizeof(m_config) + sizeof(this->minFreq), this->maxFreq);
+	m_eeprom->Get(sizeof(m_config) + sizeof(this->minFreq) + sizeof(this->maxFreq), this->grid);
 
     uint32_t version = 0;
     if ((m_config.version & CONFIG_MAGIC_MASK) == RX_CONFIG_MAGIC)
@@ -878,6 +883,12 @@ RxConfig::Commit()
 
     // Write the struct to eeprom
     m_eeprom->Put(0, m_config);
+	
+	// Custom
+	m_eeprom->Put(sizeof(m_config), this->minFreq);
+	m_eeprom->Put(sizeof(m_config) + sizeof(this->minFreq), this->maxFreq);
+	m_eeprom->Put(sizeof(m_config) + sizeof(this->minFreq) + sizeof(this->maxFreq), this->grid);
+	
     m_eeprom->Commit();
 
     m_modified = false;
@@ -1024,6 +1035,11 @@ RxConfig::SetDefaults(bool commit)
 #else
     m_config.serialProtocol = PROTOCOL_CRSF;
 #endif
+
+	// Custom
+	this->minFreq = 1;
+	this->maxFreq = 3;
+	this->grid = 1;
 
     if (commit)
     {
