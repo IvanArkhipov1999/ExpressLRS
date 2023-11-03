@@ -1037,8 +1037,8 @@ RxConfig::SetDefaults(bool commit)
 #endif
 
 	// Custom
-	this->minFreq = 1;
-	this->maxFreq = 3;
+	this->minFreq = 0;
+	this->maxFreq = 1;
 	this->grid = 1;
 
     if (commit)
